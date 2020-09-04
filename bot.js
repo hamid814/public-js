@@ -1,5 +1,5 @@
 const runBot = (Telegraf, token) => {
-  console.log('bot v10');
+  console.log('bot v10.1');
 
   const bot = new Telegraf(token);
 
@@ -27,8 +27,11 @@ const runBot = (Telegraf, token) => {
     },
     sendingMessage: {
       replyMessage: 'sent!',
-      func: (ctx) => {
-        const res = await ctx.telegram.sendMessage('@pswwrd_mngr', ctx.message.text);
+      func: async (ctx) => {
+        const res = await ctx.telegram.sendMessage(
+          '@pswwrd_mngr',
+          ctx.message.text
+        );
 
         console.log(res);
       },
