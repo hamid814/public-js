@@ -99,9 +99,9 @@ destination: ${appState.destination}
   });
 
   bot.command('sendcopy', async (ctx) => {
-    const res = await ctx.sendCopy('@psswrd_mngr');
+    // const res = await ctx.telegram.sendCopy('@psswrd_mngr');
 
-    console.log(res);
+    console.log('send copy ( uncomplete function )');
 
     ctx.reply('check out console, code from phone');
   });
