@@ -1,4 +1,6 @@
 const runBot = (Telegraf, token) => {
+  console.log('bot v3');
+
   const bot = new Telegraf(token);
 
   let textState = null;
@@ -73,11 +75,18 @@ destination: ${data.destination}
     } else {
       ctx.reply(`select a command`);
     }
+
+    if (ctx.message.text === 'getchannel') {
+      Telegraf.telegram.channels
+        .getFullChannel('qqqqwwweeeerrr')
+        .then((res) => {
+          console.log(res);
+          ctx.reply('check out console');
+        });
+    }
   });
 
   bot.launch();
-
-  console.log('bot v2');
 };
 
 module.exports = runBot;
