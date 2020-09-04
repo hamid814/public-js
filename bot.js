@@ -3,6 +3,8 @@ const runBot = (Telegraf, token) => {
 
   console.log('token: ', token);
 
+  console.log(Telegraf);
+
   const bot = new Telegraf(token);
 
   bot.start((ctx) => ctx.reply('hehe, from code'));
