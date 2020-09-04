@@ -1,5 +1,5 @@
 const runBot = (Telegraf, token) => {
-  console.log('bot v4');
+  console.log('bot v5');
 
   const bot = new Telegraf(token);
 
@@ -78,13 +78,8 @@ destination: ${data.destination}
       ctx.reply(`select a command`);
     }
 
-    if (ctx.message.text === 'getchannel') {
-      Telegraf.telegram.channels
-        .getFullChannel('qqqqwwweeeerrr')
-        .then((res) => {
-          console.log(res);
-          ctx.reply('check out console');
-        });
+    if (ctx.message.text === 'sendamessage') {
+      ctx.telegram.sendMessage('@psswrd-mngr', 'your message');
     }
   });
 
