@@ -1,5 +1,5 @@
 const runBot = (Telegraf, token) => {
-  console.log('bot v14.1');
+  console.log('bot v14.2');
 
   const bot = new Telegraf(token);
 
