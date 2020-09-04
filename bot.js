@@ -12,14 +12,14 @@ const runBot = (Telegraf, token) => {
 
   const states = {
     gettingOriginChannel: {
-      reply: 'enter name of origin channel',
+      replyMessage: 'enter name of origin channel',
       func: (ctx) => {
         data.origin = ctx.message.text;
       },
       nextState: 'gettingDestChannel',
     },
     gettingDestChannel: {
-      reply: 'enter name of destination channel',
+      replyMessage: 'enter name of destination channel',
       func: (ctx) => {
         data.destination = ctx.message.text;
       },
@@ -59,30 +59,29 @@ destination: ${data.destination}
     ctx.reply(`select a command`);
   });
 
-  // bot.on('text', (ctx) => {
-  //   console.log('on Text');
-  //   if (states[textState]) {
-  //     ctx.reply(states[textState].reply);
+  bot.command('getchannel', async (ctx) => {
+    const res = await ctx.telegram.channels.getFullChannel('@psswrd_mngr');
 
-  //     states[textState].func(ctx);
+    console.log(res);
 
-  //     setTextState(states[textState].nextState);
-  //   }
-
-  //   if (ctx.message.text === 'sendamessage') {
-  //     ctx.telegram.sendMessage('@psswrd-mngr', 'your message');
-  //   }
-
-  //   if ((textState = 'default')) {
-  //     ctx.reply('select a command');
-  //   }
-  // });
+    ctx.reply('checkout console');
+  });
 
   bot.on('text', (ctx) => {
-    ctx.reply('first text');
-    ctx.reply('second text');
-    ctx.reply('third text');
-    ctx.reply('fifth text');
+    console.log('Text Recived');
+    console.log(states[textState]);
+
+    if (states[textState]) {
+      states[textState].func(ctx);
+
+      ctx.reply(states[textState].replyMessage);
+
+      setTextState(states[textState].nextState);
+    }
+
+    if (textState === 'default') {
+      ctx.reply('select a command');
+    }
   });
 
   bot.launch();
