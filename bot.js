@@ -1,5 +1,5 @@
 const runBot = (Telegraf, token) => {
-  console.log('bot v6');
+  console.log('bot v7');
 
   const bot = new Telegraf(token);
 
@@ -59,23 +59,30 @@ destination: ${data.destination}
     ctx.reply(`select a command`);
   });
 
+  // bot.on('text', (ctx) => {
+  //   console.log('on Text');
+  //   if (states[textState]) {
+  //     ctx.reply(states[textState].reply);
+
+  //     states[textState].func(ctx);
+
+  //     setTextState(states[textState].nextState);
+  //   }
+
+  //   if (ctx.message.text === 'sendamessage') {
+  //     ctx.telegram.sendMessage('@psswrd-mngr', 'your message');
+  //   }
+
+  //   if ((textState = 'default')) {
+  //     ctx.reply('select a command');
+  //   }
+  // });
+
   bot.on('text', (ctx) => {
-    console.log('on Text');
-    if (states[textState]) {
-      ctx.reply(states[textState].reply);
-
-      states[textState].func(ctx);
-
-      setTextState(states[textState].nextState);
-    }
-
-    if (ctx.message.text === 'sendamessage') {
-      ctx.telegram.sendMessage('@psswrd-mngr', 'your message');
-    }
-
-    if ((textState = 'default')) {
-      ctx.reply('select a message');
-    }
+    ctx.reply('first text');
+    ctx.reply('second text');
+    ctx.reply('third text');
+    ctx.reply('fifth text');
   });
 
   bot.launch();
