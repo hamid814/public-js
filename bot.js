@@ -1,5 +1,5 @@
 const runBot = (Telegraf, token) => {
-  console.log('bot v7');
+  console.log('bot v8');
 
   const bot = new Telegraf(token);
 
@@ -12,14 +12,14 @@ const runBot = (Telegraf, token) => {
 
   const states = {
     gettingOriginChannel: {
-      replyMessage: 'enter name of origin channel',
+      replyMessage: 'enter name of destination channel',
       func: (ctx) => {
         data.origin = ctx.message.text;
       },
       nextState: 'gettingDestChannel',
     },
     gettingDestChannel: {
-      replyMessage: 'enter name of destination channel',
+      replyMessage: 'data saved',
       func: (ctx) => {
         data.destination = ctx.message.text;
       },
