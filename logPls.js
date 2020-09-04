@@ -1,5 +1,5 @@
-fucntion logPls() {
-	console.log('I am hoosted on google drive');
+function logPls() {
+  console.log('I am hoosted on google drive');
 }
 
-module.exports = logPls
+module.exports = logPls;
