@@ -1,5 +1,5 @@
 const runBot = (Telegraf, token) => {
-  console.log('bot v13');
+  console.log('bot v13.1');
 
   const bot = new Telegraf(token);
 
@@ -43,7 +43,7 @@ const runBot = (Telegraf, token) => {
         const res = await ctx.telegram.forwardMessage(
           '@psswrd_mngr',
           '@qqqqwwweeeerrr',
-          ctx.message.text
+          Number(ctx.message.text)
         );
 
         console.log(res);
