@@ -1,5 +1,5 @@
 function logPls() {
-  console.log('I am hoosted on google drive');
+  console.log('I am hosted online');
 }
 
 module.exports = logPls;
