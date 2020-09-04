@@ -28,7 +28,7 @@ const runBot = (Telegraf, token) => {
     sendingMessage: {
       replyMessage: 'sent!',
       func: (ctx) => {
-        const res = await ctx.telegram.sendMessage('@pswwrd_mngr', 'Some Text');
+        const res = await ctx.telegram.sendMessage('@pswwrd_mngr', ctx.message.text);
 
         console.log(res);
       },
