@@ -1,10 +1,4 @@
 const runBot = (Telegraf, token) => {
-  console.log('--- Start of online Code ---');
-
-  console.log('token: ', token);
-
-  console.log(Telegraf);
-
   const bot = new Telegraf(token);
 
   bot.start((ctx) => ctx.reply('hehe, from code'));
@@ -27,8 +21,7 @@ const runBot = (Telegraf, token) => {
   });
 
   bot.launch();
-
-  console.log('--- End of online Code ---');
+  console.log('bot v1');
 };
 
 module.exports = runBot;
