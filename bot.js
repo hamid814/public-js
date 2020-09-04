@@ -8,6 +8,23 @@ const runBot = (Telegraf, token) => {
     destination: '',
   };
 
+  const states = {
+    gettingOriginChannel: {
+      reply: 'enter name of origin channel',
+      func: (ctx) => {
+        data.origin = ctx.message.text;
+      },
+      nextState: 'gettingDestChannel',
+    },
+    gettingDestChannel: {
+      reply: 'enter name of destination channel',
+      func: (ctx) => {
+        data.destination = ctx.message.text;
+      },
+      nextState: null,
+    },
+  };
+
   const setTextState = (state) => {
     textState = state;
   };
@@ -41,19 +58,12 @@ destination: ${data.destination}
   });
 
   bot.on('text', (ctx) => {
-    if (textState === 'gettingOriginChannel') {
-      data.origin = ctx.message.text;
+    if (states[ctx.message.text]) {
+      setTextState(states[ctx.message.text].nextState);
 
-      setTextState('gettingDestChannel');
+      states[ctx.message.text].func(ctx);
 
-      ctx.reply('enter name of destination channel');
-    }
-
-    if (textState === 'gettingDestChannel') {
-      data.destination = ctx.message.text;
-
-      setTextState(null);
-      ctx.reply('Done for now');
+      ctx.reply(states[ctx.message.text].reply);
     }
 
     if (ctx.message.text === 'tell me') {
