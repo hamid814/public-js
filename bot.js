@@ -1,5 +1,5 @@
 const runBot = (Telegraf, token) => {
-  console.log('bot v8');
+  console.log('bot v9');
 
   const bot = new Telegraf(token);
 
@@ -60,7 +60,7 @@ destination: ${data.destination}
   });
 
   bot.command('getchannel', async (ctx) => {
-    const res = await ctx.telegram.channels.getFullChannel('@psswrd_mngr');
+    const res = await ctx.telegram.getChat('@psswrd_mngr');
 
     console.log(res);
 
