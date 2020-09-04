@@ -85,6 +85,10 @@ destination: ${appState.destination}
     ctx.reply('what do i send?');
   });
 
+  bot.command('getallmessages', (ctx) => {
+    // ctx.telegram.getMessages()
+  });
+
   bot.command('sendcopy', async (ctx) => {
     const res = await ctx.sendCopy('@psswrd_mngr');
 
