@@ -37,6 +37,19 @@ const runBot = (Telegraf, token) => {
       },
       nextState: 'default',
     },
+    gettingForwardMessageId: {
+      replyMessage: 'sent, check it out!',
+      func: async (ctx) => {
+        const res = await ctx.telegram.forwardMessage(
+          '@psswrd_mngr',
+          '@qqqqwwweeeerrr',
+          ctx.message.text
+        );
+
+        console.log(res);
+      },
+      nextState: 'default',
+    },
   };
 
   const setTextState = (state) => {
@@ -99,6 +112,12 @@ destination: ${appState.destination}
     console.log(res);
 
     ctx.reply('check out console, code from phone');
+  });
+
+  bot.command('forward', (ctx) => {
+    setTextState('gettingForwardMessageId');
+
+    ctx.reply('give me id of message');
   });
 
   bot.on('text', (ctx) => {
