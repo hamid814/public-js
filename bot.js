@@ -1,5 +1,5 @@
 const runBot = (Telegraf, token) => {
-  console.log('bot v14');
+  console.log('bot v14.1');
 
   const bot = new Telegraf(token);
 
@@ -134,7 +134,7 @@ destination: ${appState.destination}
   });
 
   bot.command('forward', (ctx) => {
-    setTextState('gettingForwardMessageId');
+    setTextState('gettingForwardFromId');
 
     ctx.reply('give me id of message');
   });
