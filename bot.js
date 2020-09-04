@@ -136,7 +136,7 @@ destination: ${appState.destination}
   bot.command('forward', (ctx) => {
     setTextState('gettingForwardFromId');
 
-    ctx.reply('give me id of message');
+    ctx.reply('give me id of from channel');
   });
 
   bot.on('text', (ctx) => {
