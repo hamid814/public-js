@@ -21,7 +21,8 @@ const runBot = (Telegraf, token) => {
   });
 
   bot.launch();
-  console.log('bot v1');
+
+  console.log('bot v2');
 };
 
 module.exports = runBot;
