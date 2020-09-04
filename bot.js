@@ -29,7 +29,7 @@ const runBot = (Telegraf, token) => {
       replyMessage: 'sent!',
       func: async (ctx) => {
         const res = await ctx.telegram.sendMessage(
-          '@pswwrd_mngr',
+          '@psswrd_mngr',
           ctx.message.text
         );
 
