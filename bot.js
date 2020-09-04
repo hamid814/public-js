@@ -23,7 +23,7 @@ const runBot = (Telegraf, token) => {
   bot.command('getdata', (ctx) => {
     ctx.reply(`
     origin: ${data.origin}
-    destination: ${data.destination}
+destination: ${data.destination}
     `);
   });
 
@@ -67,7 +67,7 @@ const runBot = (Telegraf, token) => {
 
   bot.launch();
 
-  console.log('bot v1');
+  console.log('bot v2');
 };
 
 module.exports = runBot;
