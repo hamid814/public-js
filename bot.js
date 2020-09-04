@@ -22,7 +22,7 @@ const runBot = (Telegraf, token) => {
 
   // bot.launch();
 
-  console.log('bot v3');
+  console.log('bot v4');
 };
 
 module.exports = runBot;
