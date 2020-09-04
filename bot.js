@@ -44,7 +44,7 @@ const runBot = (Telegraf, token) => {
 
         const res = await ctx.telegram.forwardMessage(
           '@psswrd_mngr',
-          '@psswrd_mngr',
+          '@qqqqwwweeeerrr',
           messageId
         );
 
