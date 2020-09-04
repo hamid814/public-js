@@ -8,6 +8,9 @@ const runBot = (Telegraf, token) => {
   const appState = {
     origin: '',
     destination: '',
+    forwardFormId: '',
+    forwardToId: '',
+    forwardMessageId: '',
   };
 
   const textStates = {
@@ -37,18 +40,40 @@ const runBot = (Telegraf, token) => {
       },
       nextState: 'default',
     },
-    gettingForwardMessageId: {
-      replyMessage: 'sent, check it out!',
+    gettingForwardFromId: {
+      replyMessage: 'now give me forward to id',
       func: async (ctx) => {
-        const messageId = Number(ctx.message.text);
+        appState.forwardFormId = ctx.message.text;
+      },
+      nextState: 'gettingForwardToId',
+    },
+    gettingForwardToId: {
+      replyMessage: 'now give me id of message',
+      func: async (ctx) => {
+        appState.forwardToId = ctx.message.text;
+      },
+      nextState: 'gettingForwardMessageId',
+    },
+    gettingForwardMessageId: {
+      replyMessage: 'check it out!',
+      func: async (ctx) => {
+        try {
+          const messageId = Number(ctx.message.text);
 
-        const res = await ctx.telegram.forwardMessage(
-          '@psswrd_mngr',
-          '@qqqqwwweeeerrr',
-          messageId
-        );
+          const res = await ctx.telegram.forwardMessage(
+            '@psswrd_mngr',
+            '@qqqqwwweeeerrr',
+            messageId
+          );
 
-        console.log(res);
+          ctx.reply('sent');
+
+          console.log(res);
+        } catch (err) {
+          ctx.reply('there was an error');
+
+          console.log(err);
+        }
       },
       nextState: 'default',
     },
