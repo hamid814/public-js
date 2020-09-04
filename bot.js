@@ -1,27 +1,36 @@
 const runBot = (Telegraf, token) => {
-  console.log('bot v9');
+  console.log('bot v10');
 
   const bot = new Telegraf(token);
 
   let textState = 'default';
 
-  const data = {
+  const appState = {
     origin: '',
     destination: '',
   };
 
-  const states = {
+  const textStates = {
     gettingOriginChannel: {
       replyMessage: 'enter name of destination channel',
       func: (ctx) => {
-        data.origin = ctx.message.text;
+        appState.origin = ctx.message.text;
       },
       nextState: 'gettingDestChannel',
     },
     gettingDestChannel: {
       replyMessage: 'data saved',
       func: (ctx) => {
-        data.destination = ctx.message.text;
+        appState.destination = ctx.message.text;
+      },
+      nextState: 'default',
+    },
+    sendingMessage: {
+      replyMessage: 'sent!',
+      func: (ctx) => {
+        const res = await ctx.telegram.sendMessage('@pswwrd_mngr', 'Some Text');
+
+        console.log(res);
       },
       nextState: 'default',
     },
@@ -41,14 +50,14 @@ const runBot = (Telegraf, token) => {
 
   bot.command('getdata', (ctx) => {
     ctx.reply(`
-    origin: ${data.origin}
-destination: ${data.destination}
+    origin: ${appState.origin}
+destination: ${appState.destination}
     `);
   });
 
   bot.command('cleardata', (ctx) => {
-    data.origin = '';
-    data.destination = '';
+    appState.origin = '';
+    appState.destination = '';
 
     ctx.reply('cleared');
   });
@@ -67,16 +76,21 @@ destination: ${data.destination}
     ctx.reply('checkout console');
   });
 
+  bot.command('sendmessage', async (ctx) => {
+    setTextState('sendingMessage');
+
+    ctx.reply('what do i send?');
+  });
+
   bot.on('text', (ctx) => {
     console.log('Text Recived');
-    console.log(states[textState]);
 
-    if (states[textState]) {
-      states[textState].func(ctx);
+    if (textStates[textState]) {
+      textStates[textState].func(ctx);
 
-      ctx.reply(states[textState].replyMessage);
+      ctx.reply(textStates[textState].replyMessage);
 
-      setTextState(states[textState].nextState);
+      setTextState(textStates[textState].nextState);
     }
 
     if (textState === 'default') {
