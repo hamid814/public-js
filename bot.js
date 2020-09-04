@@ -3,7 +3,7 @@ const runBot = (Telegraf, token) => {
 
   const bot = new Telegraf(token);
 
-  let textState = null;
+  let textState = 'default';
 
   const data = {
     origin: '',
@@ -23,7 +23,7 @@ const runBot = (Telegraf, token) => {
       func: (ctx) => {
         data.destination = ctx.message.text;
       },
-      nextState: null,
+      nextState: 'default',
     },
   };
 
@@ -54,32 +54,27 @@ destination: ${data.destination}
   });
 
   bot.command('cancel', (ctx) => {
-    setTextState(null);
+    setTextState('default');
 
     ctx.reply(`select a command`);
   });
 
   bot.on('text', (ctx) => {
     console.log('on Text');
-    console.log(states[ctx.message.text]);
-    if (states[ctx.message.text]) {
-      setTextState(states[ctx.message.text].nextState);
+    if (states[textState]) {
+      ctx.reply(states[textState].reply);
 
-      states[ctx.message.text].func(ctx);
+      states[textState].func(ctx);
 
-      ctx.reply(states[ctx.message.text].reply);
-    }
-
-    if (ctx.message.text === 'tell me') {
-      ctx.reply(`im telling you`);
-
-      console.log('i told him');
-    } else {
-      ctx.reply(`select a command`);
+      setTextState(states[textState].nextState);
     }
 
     if (ctx.message.text === 'sendamessage') {
       ctx.telegram.sendMessage('@psswrd-mngr', 'your message');
+    }
+
+    if ((textState = 'default')) {
+      ctx.reply('select a message');
     }
   });
 
