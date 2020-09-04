@@ -1,5 +1,5 @@
 const runBot = (Telegraf, token) => {
-  console.log('bot v11');
+  console.log('bot v12');
 
   const bot = new Telegraf(token);
 
@@ -96,14 +96,6 @@ destination: ${appState.destination}
     setTextState('sendingMessage');
 
     ctx.reply('what do i send?');
-  });
-
-  bot.command('getallmessages', (ctx) => {
-    const res = ctx.telegram.channels.getMessages('@username');
-
-    console.log(res);
-
-    ctx.reply('check out console');
   });
 
   bot.command('sendcopy', async (ctx) => {
