@@ -1,5 +1,5 @@
 const runBot = (Telegraf, token) => {
-  console.log('bot v3');
+  console.log('bot v4');
 
   const bot = new Telegraf(token);
 
@@ -60,6 +60,8 @@ destination: ${data.destination}
   });
 
   bot.on('text', (ctx) => {
+    console.log('on Text');
+    console.log(states[ctx.message.text]);
     if (states[ctx.message.text]) {
       setTextState(states[ctx.message.text].nextState);
 
