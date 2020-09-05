@@ -1,5 +1,5 @@
 const runBot = (Telegraf, token) => {
-  console.log('bot v15.1');
+  console.log('bot v16');
 
   const bot = new Telegraf(token);
 
@@ -11,6 +11,7 @@ const runBot = (Telegraf, token) => {
     forwardFormId: '',
     forwardToId: '',
     forwardMessageId: '',
+    fileId: '',
   };
 
   const textStates = {
@@ -113,6 +114,24 @@ const runBot = (Telegraf, token) => {
       },
       nextState: 'default',
     },
+    gettingUserId: {
+      reply: 'this is user name',
+      func: async (ctx) => {
+        const res = await ctx.telegram.getChat(ctx.message.text);
+
+        console.log(res);
+
+        appState.fileId = res.res.photo.big_file_id;
+
+        ctx.reply(`id: ${res.id}
+title: ${res.title}
+username: ${res.username}
+type: ${res.type}
+photo: ${res.photo}
+big photo id: ${res.photo.big_file_id}`);
+      },
+      nextState: 'default',
+    },
   };
 
   const setTextState = (state) => {
@@ -121,20 +140,20 @@ const runBot = (Telegraf, token) => {
 
   bot.start((ctx) => ctx.reply('bot is being developed'));
 
-  bot.command('sendAll', (ctx) => {
+  bot.command('sendall', (ctx) => {
     setTextState('gettingOriginChannel');
 
     ctx.reply('enter name of origin channel');
   });
 
-  bot.command('getData', (ctx) => {
+  bot.command('getdata', (ctx) => {
     ctx.reply(`
     origin: ${appState.origin}
 destination: ${appState.destination}
     `);
   });
 
-  bot.command('clearData', (ctx) => {
+  bot.command('cleardata', (ctx) => {
     appState.origin = '';
     appState.destination = '';
 
@@ -147,21 +166,13 @@ destination: ${appState.destination}
     ctx.reply(`select a command`);
   });
 
-  bot.command('getChannel', async (ctx) => {
-    const res = await ctx.telegram.getChat('@psswrd_mngr');
-
-    console.log(res);
-
-    ctx.reply('checkout console');
-  });
-
-  bot.command('sendMessage', async (ctx) => {
+  bot.command('sendmessage', async (ctx) => {
     setTextState('sendingMessage');
 
     ctx.reply('what do i send?');
   });
 
-  bot.command('sendCopy', async (ctx) => {
+  bot.command('sendcopy', async (ctx) => {
     // const res = await ctx.telegram.sendCopy('@psswrd_mngr');
 
     console.log('send copy ( uncomplete function )');
@@ -175,10 +186,20 @@ destination: ${appState.destination}
     ctx.reply('give me id of from channel');
   });
 
-  bot.command('getLink', (ctx) => {
+  bot.command('getlink', (ctx) => {
     setTextState('gettingFileId');
 
     ctx.reply('send the ID of FILE');
+  });
+
+  bot.command('getuser', async (ctx) => {
+    setTextState('gettingUserId');
+
+    ctx.reply('Send me th id on User');
+  });
+
+  bot.command('/getphoto', (ctx) => {
+    ctx.replyWithPhoto(appState.fileId);
   });
 
   bot.on('text', (ctx) => {
