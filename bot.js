@@ -121,7 +121,7 @@ const runBot = (Telegraf, token) => {
 
         console.log(res);
 
-        appState.fileId = res.res.photo.big_file_id;
+        appState.fileId = res.photo.big_file_id;
 
         ctx.reply(`id: ${res.id}
 title: ${res.title}
@@ -136,6 +136,8 @@ big photo id: ${res.photo.big_file_id}`);
 
   const setTextState = (state) => {
     textState = state;
+
+    console.log('state: ' + state);
   };
 
   bot.start((ctx) => ctx.reply('bot is being developed'));
