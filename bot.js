@@ -68,9 +68,34 @@ const runBot = (Telegraf, token) => {
 
           ctx.reply('sent');
 
+          const context = ctx;
+
+          const message = res;
+
+          delete message.forward_from_message_id;
+          delete message.forward_date;
+          delete message.forward_from_chat;
+
+          setTimeout(async () => {
+            try {
+              const res = await context.telegram.sendCopy(
+                appState.forwardToId,
+                message
+              );
+
+              console.log('without forward:');
+              console.log(res);
+
+              ctx.reply('without forward sent!');
+            } catch (err) {
+              console.log(err);
+              context.reply('there was an error in copying');
+            }
+          }, 2000);
+
           console.log(res);
         } catch (err) {
-          ctx.reply('there was an error');
+          ctx.reply('there was an error in forwardin');
 
           console.log(err);
         }
