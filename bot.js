@@ -1,5 +1,5 @@
 const runBot = (Telegraf, token) => {
-  console.log('bot v15');
+  console.log('bot v15.1');
 
   const bot = new Telegraf(token);
 
@@ -121,20 +121,20 @@ const runBot = (Telegraf, token) => {
 
   bot.start((ctx) => ctx.reply('bot is being developed'));
 
-  bot.command('sendall', (ctx) => {
+  bot.command('sendAll', (ctx) => {
     setTextState('gettingOriginChannel');
 
     ctx.reply('enter name of origin channel');
   });
 
-  bot.command('getdata', (ctx) => {
+  bot.command('getData', (ctx) => {
     ctx.reply(`
     origin: ${appState.origin}
 destination: ${appState.destination}
     `);
   });
 
-  bot.command('cleardata', (ctx) => {
+  bot.command('clearData', (ctx) => {
     appState.origin = '';
     appState.destination = '';
 
@@ -147,7 +147,7 @@ destination: ${appState.destination}
     ctx.reply(`select a command`);
   });
 
-  bot.command('getchannel', async (ctx) => {
+  bot.command('getChannel', async (ctx) => {
     const res = await ctx.telegram.getChat('@psswrd_mngr');
 
     console.log(res);
@@ -155,13 +155,13 @@ destination: ${appState.destination}
     ctx.reply('checkout console');
   });
 
-  bot.command('sendmessage', async (ctx) => {
+  bot.command('sendMessage', async (ctx) => {
     setTextState('sendingMessage');
 
     ctx.reply('what do i send?');
   });
 
-  bot.command('sendcopy', async (ctx) => {
+  bot.command('sendCopy', async (ctx) => {
     // const res = await ctx.telegram.sendCopy('@psswrd_mngr');
 
     console.log('send copy ( uncomplete function )');
