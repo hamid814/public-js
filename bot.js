@@ -1,5 +1,5 @@
 const runBot = (Telegraf, token) => {
-  console.log('bot v14.4');
+  console.log('bot v15');
 
   const bot = new Telegraf(token);
 
@@ -102,6 +102,17 @@ const runBot = (Telegraf, token) => {
       },
       nextState: 'default',
     },
+    gettingFileId: {
+      reply: 'this is your file link:',
+      func: async (ctx) => {
+        const res = await ctx.telegram.getFileLink(ctx.message.text);
+
+        console.log(res);
+
+        ctx.reply(res);
+      },
+      nextState: 'default',
+    },
   };
 
   const setTextState = (state) => {
@@ -162,6 +173,12 @@ destination: ${appState.destination}
     setTextState('gettingForwardFromId');
 
     ctx.reply('give me id of from channel');
+  });
+
+  bot.command('getLink', (ctx) => {
+    setTextState('gettingFileId');
+
+    ctx.reply('send the ID of FILE');
   });
 
   bot.on('text', (ctx) => {
